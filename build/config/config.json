@@ -1,0 +1,41 @@
+{
+    "window_width": 1280,
+    "window_height": 720,
+    "window_title": "CrashBox - 2D车辆物理模拟器",
+    "fps_limit": 60,
+    "physics_dt": 0.001,
+    "physics_substeps": 10,
+
+    "pixels_per_meter": 50.0,
+    "camera_smooth": 4.0,
+
+    "chassis_width": 2.4,
+    "chassis_height": 0.5,
+    "chassis_mass": 800.0,
+    "wheelbase": 2.4,
+    "cg_height": 0.3,
+    "engine_force": 5000.0,
+    "brake_force": 8000.0,
+    "max_steer_angle": 35.0,
+    "ride_height": 0.9,
+
+    "suspension_stiffness_front": 65000.0,
+    "suspension_stiffness_rear": 50000.0,
+    "suspension_damping": 7000.0,
+    "suspension_rest_length": 0.55,
+    "suspension_break_force": 300000.0,
+
+    "spring_stiffness": 300000.0,
+    "spring_damping": 3000.0,
+    "spring_break_threshold": 2.5,
+
+    "tire_radius": 0.35,
+
+    "terrain_type": "preset",
+    "terrain_segment_width": 3.0,
+    "terrain_max_slope": 0.25,
+    "terrain_length": 200.0,
+
+    "font_path": "C:/Windows/Fonts/msyh.ttc",
+    "log_file": "crashbox.log"
+}

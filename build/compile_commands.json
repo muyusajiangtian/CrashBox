@@ -1,0 +1,8 @@
+[
+{
+  "directory": "E:/coding_agent/CrashBox/build",
+  "command": "E:\\mingw64\\bin\\g++.exe -DSFML_STATIC @CMakeFiles/CrashBox.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\CrashBox.dir\\src\\main.cpp.obj -c E:\\coding_agent\\CrashBox\\src\\main.cpp",
+  "file": "E:/coding_agent/CrashBox/src/main.cpp",
+  "output": "CMakeFiles/CrashBox.dir/src/main.cpp.obj"
+}
+]

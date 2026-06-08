@@ -1,0 +1,3 @@
+E:/coding_agent/CrashBox/build2/CMakeFiles/CrashBox.dir
+E:/coding_agent/CrashBox/build2/CMakeFiles/edit_cache.dir
+E:/coding_agent/CrashBox/build2/CMakeFiles/rebuild_cache.dir
