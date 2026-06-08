@@ -25,10 +25,12 @@ struct VehicleConfig {
     float engineForce = 5000.0f;
     float brakeForce = 8000.0f;
     float maxSteerAngle = 35.0f;
-    float suspStiffnessFront = 65000.0f;  // 前悬挂刚度（更高抗塌底）
-    float suspStiffnessRear = 50000.0f;   // 后悬挂刚度
+    float suspStiffnessFront = 65000.0f;
+    float suspStiffnessRear = 50000.0f;
     float suspDamping = 7000.0f;
     float suspRestLength = 0.55f;
+    float suspMaxCompression = 0.35f;   // 最大压缩行程(m)
+    float suspMaxExtension = 0.20f;     // 最大拉伸行程(m)
     float suspBreakForce = 300000.0f;
     float springStiffness = 300000.0f;
     float springDamping = 3000.0f;
@@ -194,18 +196,46 @@ public:
             float suspCurrentLen = wheelPositions[i].y - anchorPos.y;
             float compression = config.suspRestLength - suspCurrentLen;
 
+            // ===== 行程硬限制：超过最大压缩/拉伸后变为刚性 =====
+            float minLen = config.suspRestLength - config.suspMaxCompression;
+            float maxLen = config.suspRestLength + config.suspMaxExtension;
+
+            if (suspCurrentLen < minLen) {
+                // 超过最大压缩行程：刚性止挡，强制轮子不能再往上
+                wheelPositions[i].y = anchorPos.y + minLen;
+                suspCurrentLen = minLen;
+                compression = config.suspMaxCompression;
+            } else if (suspCurrentLen > maxLen) {
+                // 超过最大拉伸行程：刚性止挡，轮子不能再往下
+                wheelPositions[i].y = anchorPos.y + maxLen;
+                suspCurrentLen = maxLen;
+                compression = -config.suspMaxExtension;
+            }
+
             // 压缩比记录
             suspCompression[i] = clamp(
-                (compression + 0.2f) / (config.suspRestLength + 0.2f), 0.0f, 1.0f);
+                (compression + config.suspMaxExtension) /
+                (config.suspMaxCompression + config.suspMaxExtension), 0.0f, 1.0f);
 
             if (suspCurrentLen > 0.02f && onGround) {
                 float compRate = anchorVel.y;
 
-                // 修复4：前悬挂使用更高刚度
                 float stiffness = (i == 0) ? config.suspStiffnessFront : config.suspStiffnessRear;
                 float suspForce = stiffness * compression + config.suspDamping * compRate;
 
-                // 限制拉伸力（悬挂只能推不能拉超过一定量）
+                // 行程端点附加渐进刚性力（越接近极限越硬）
+                float compressionRatio = compression / config.suspMaxCompression;
+                if (compressionRatio > 0.8f) {
+                    float overRatio = (compressionRatio - 0.8f) / 0.2f;
+                    suspForce += overRatio * overRatio * stiffness * 3.0f;
+                }
+                float extensionRatio = -compression / config.suspMaxExtension;
+                if (extensionRatio > 0.8f) {
+                    float overRatio = (extensionRatio - 0.8f) / 0.2f;
+                    suspForce -= overRatio * overRatio * stiffness * 2.0f;
+                }
+
+                // 限制拉伸力
                 if (suspForce < -stiffness * 0.1f) {
                     suspForce = -stiffness * 0.1f;
                 }

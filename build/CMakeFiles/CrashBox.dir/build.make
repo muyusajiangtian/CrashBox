@@ -95,10 +95,10 @@ CrashBox_EXTERNAL_OBJECTS =
 
 CrashBox.exe: CMakeFiles/CrashBox.dir/src/main.cpp.obj
 CrashBox.exe: CMakeFiles/CrashBox.dir/build.make
-CrashBox.exe: E:/SFML/SFML-3.0.1-gcc15/lib/libsfml-graphics-s-d.a
-CrashBox.exe: E:/SFML/SFML-3.0.1-gcc15/lib/libsfml-window-s-d.a
-CrashBox.exe: E:/SFML/SFML-3.0.1-gcc15/lib/libsfml-system-s-d.a
-CrashBox.exe: E:/SFML/SFML-3.0.1-gcc15/lib/libfreetyped.a
+CrashBox.exe: E:/SFML/SFML-3.0.1-gcc15/lib/libsfml-graphics-s.a
+CrashBox.exe: E:/SFML/SFML-3.0.1-gcc15/lib/libsfml-window-s.a
+CrashBox.exe: E:/SFML/SFML-3.0.1-gcc15/lib/libsfml-system-s.a
+CrashBox.exe: E:/SFML/SFML-3.0.1-gcc15/lib/libfreetype.a
 CrashBox.exe: CMakeFiles/CrashBox.dir/linkLibs.rsp
 CrashBox.exe: CMakeFiles/CrashBox.dir/objects1.rsp
 CrashBox.exe: CMakeFiles/CrashBox.dir/link.txt
